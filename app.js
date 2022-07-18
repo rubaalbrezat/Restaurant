@@ -94,25 +94,26 @@ Food.prototype.render = function () {
 }*/
 
 'use strict';
+const allFood=[];
 
-function Food (foodName,type,price) {
+function Food(foodID ,foodName,foodtype,foodprice) {
     
-    this.foodID= this.randomIDNumber();
+    this.foodID = foodID; 
     this.foodName=foodName;
-    this.type=type;
-    this.price=price;
+    this.foodtype=foodtype;
+    this.foodprice=foodprice;
 
-    console.log (this);
+    allFood.push(this);
 }
 
-Food.prototype.randomIDNumber= function() {
+function randomIDNumber () {
       return (Math.floor(Math.random()*(9999-1000+1))+1000);
     }
 
 
-Food.prototype.render = function() {
+/*Food.prototype.render = function() {
 
-    let tablePlace = document.getElementById("jsTableID");
+    let tablePlace = document.getElementById("table");
 
     let tableRow = document.createElement("tr");
     let tableData1st = document.createElement("td");
@@ -131,17 +132,31 @@ Food.prototype.render = function() {
     tableRow.appendChild(tableData4th);
     tablePlace.appendChild(tableRow);
 }
-
+*/
 
 let newFood = document.getElementById("formID");
-newFood.addEventListener("submit",doSubmit);
-function doSubmit(event) {
+newFood.addEventListener("submit",Submit);
+function Submit(event) {
 event.preventDefault();
+let foodID = randomIDNumber();
 let foodName = event.target.foodNameID.value;  
-let type = event.target.foodTypeID.value;
-let price = event.target.priceID.value;
+let foodtype = event.target.foodTypeID.value;
+let foodprice = event.target.priceID.value;
 
-let newFoodOnMenu = new Food (foodName,type,price);
-newFoodOnMenu.render();
+let newFoodOnMenu = new Food (foodID,foodName,foodtype,foodprice);
+//newFoodOnMenu.render();
+ save();
 
 }
+
+
+
+ function save(){
+let saveArr = JSON.stringify(allFood);
+localStorage.setItem("saveKey", saveArr);
+
+
+ }
+
+
+
