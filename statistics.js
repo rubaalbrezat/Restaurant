@@ -1,11 +1,11 @@
 
 'use strict';
 
-
+let getArr = localStorage.getItem("saveKey");
+let newArr = JSON.parse(getArr);
 
 function get1() {
-    let getArr = localStorage.getItem("saveKey");
-    let newArr = JSON.parse(getArr);
+   
 
    
      if(newArr != null){
@@ -45,6 +45,40 @@ function get1() {
 
 }
 get1();
+
+
+
+const names =[];
+const price =[];
+
+for(let j=0;j<newArr.length;j++){
+     names.push(newArr[j].foodName);
+     price.push(newArr[j].foodprice);
+}
+
+const labels = [
+    
+  ];
+
+  const data = {
+    labels: names,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: 'black',
+      borderColor: 'gold',
+      data: price,
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {}
+  };
+  const myChart = new Chart(
+document.getElementById('myChart'),
+config
+);
 
 
 
